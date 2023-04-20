@@ -1,0 +1,8 @@
+<form #userLogin="ngForm" (ngSubmit)="login(userLogin.value)">
+  <label>Username<input type="text" name="username" ngModel></label>
+  <label>Password<input type="text" name="password" ngModel></label>
+  <div *ngIf="incorrectPassword">
+    <p id="IncorrectPW">Invalid Username or Password</p>
+  </div>
+  <input type="submit" value="SUBMIT">
+</form>
