@@ -15,14 +15,12 @@ import { User } from '../User';
 
 export class LogincomponentComponent implements OnInit {
   private usersUrl: string;
-  currentUserArray: User;
   incorrectPassword: boolean;
   private response: AuthenticationFailed[];
   constructor(private http: HttpClient, private router: Router) {
     this.usersUrl = 'http://localhost:8080/login'
     this.response = [];
     this.incorrectPassword = false;
-    this.currentUserArray = new User("Blank");
    }
 
   ngOnInit() {
@@ -45,7 +43,6 @@ export class LogincomponentComponent implements OnInit {
                 response.json().then((data) =>{
                   console.log(data)
                   let rawUser = data;
-                  this.currentUserArray.username = rawUser.username;
                   this.router.navigate(["/profile"], {state: {data: rawUser.username}})
                 })
               })
