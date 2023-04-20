@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class UserprofileComponent implements OnInit {
   currentUser: String;
   constructor() { 
-    this.currentUser = history.state.data.username;
+    this.currentUser = history.state.data;
   }
 
   ngOnInit(): void {
