@@ -46,7 +46,7 @@ export class LogincomponentComponent implements OnInit {
                   console.log(data)
                   let rawUser = data;
                   this.currentUserArray.username = rawUser.username;
-                  this.router.navigate(["/profile"], {state: {data: this.currentUserArray}})
+                  this.router.navigate(["/profile"], {state: {data: rawUser.username}})
                 })
               })
             }

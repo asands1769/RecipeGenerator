@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "recipe-generator:build:production"
+              "browserTarget": "RecipeGeneratorFrontend:build:production"
             },
             "development": {
-              "browserTarget": "recipe-generator:build:development"
+              "browserTarget": "RecipeGeneratorFrontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "recipe-generator:build"
+            "browserTarget": "RecipeGeneratorFrontend:build"
           }
         },
         "test": {
@@ -102,5 +102,5 @@
       }
     }
   },
-  "defaultProject": "recipe-generator"
+  "defaultProject": "RecipeGeneratorFrontend"
 }
