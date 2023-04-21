@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:4200", maxAge = 3600)
+@CrossOrigin
 public class AuthenticationController {
 
     @Autowired
@@ -68,12 +68,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(authenticationSuccess, HttpStatus.OK);
 
     }
-    @GetMapping("/login")
-    public String displayLoginForm(Model model) {
-        model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Log In");
-        return "login";
-    }
+
     @PostMapping("/login")
     public ResponseEntity<?> processLoginForm(@RequestBody LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
