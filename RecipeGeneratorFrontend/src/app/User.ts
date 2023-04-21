@@ -1,7 +1,7 @@
 export class User {
     username: String;
-	id: number;
-	constructor(username: String, id: number){
+	id: String;
+	constructor(username: String, id: String){
 		this.username = username;
 		this.id = id;
 	}

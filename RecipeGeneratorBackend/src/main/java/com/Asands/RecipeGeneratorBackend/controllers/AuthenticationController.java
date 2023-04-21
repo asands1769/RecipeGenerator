@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(maxAge = 3600)
 public class AuthenticationController {
 
     @Autowired
     UserRepository userRepository;
     private static final String userSessionKey = "user";
+    private static int userId = 0;
 @GetMapping("/currentUser")
     public ResponseEntity<?> getUserFromSession(HttpSession session) {
-        Integer userId = (Integer) session.getAttribute(userSessionKey);
-        if (userId == null) {
+        if (userId == 0) {
             return null;
         }
 
@@ -68,11 +68,8 @@ public class AuthenticationController {
         return new ResponseEntity<>(authenticationSuccess, HttpStatus.OK);
 
     }
-
     @PostMapping("/login")
-    public ResponseEntity<?> processLoginForm(@RequestBody LoginFormDTO loginFormDTO,
-                                   Errors errors, HttpServletRequest request,
-                                   Model model) {
+    public ResponseEntity<?> processLoginForm(@RequestBody LoginFormDTO loginFormDTO, HttpServletRequest request) {
 
         User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
 
@@ -89,13 +86,17 @@ public class AuthenticationController {
 
         }
         setUserInSession(request.getSession(), theUser);
+        userId = theUser.getId();
         AuthenticationSuccess authenticationSuccess = new AuthenticationSuccess("User logged in and session created");
-        return new ResponseEntity<>(authenticationSuccess, HttpStatus.OK);
+        return new ResponseEntity<>(theUser, HttpStatus.OK);
     }
 
     @GetMapping("/logout")
-    public void logout(HttpServletRequest request){
-        request.getSession().invalidate();
+    public ResponseEntity<?> logout(HttpServletRequest request){
+    userId = 0;
+    request.getSession().invalidate();
+    AuthenticationFailure authenticationFailure = new AuthenticationFailure("User logged out.");
+    return new ResponseEntity<>(authenticationFailure, HttpStatus.OK);
     }
 
 }

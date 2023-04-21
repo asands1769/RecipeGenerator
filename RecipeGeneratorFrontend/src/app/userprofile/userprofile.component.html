@@ -1,1 +1,12 @@
-<p>Logged in as: {{currentUser.username}}</p>
+
+
+<div *ngIf="loggedIn; else notLoggedIn">
+    <div style="text-align: right;">
+        <button (click)="logOut()"> Log Out?</button>
+    </div>
+<p>Logged in as: {{currentUser[1]}}</p>
+</div>
+<ng-template #notLoggedIn>
+    User is not logged in.
+    <a routerLink="/login" routerLinkActive="active" (click)="loggedIn = false">Login</a>
+</ng-template>
