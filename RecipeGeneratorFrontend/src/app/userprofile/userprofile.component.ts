@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../User';
 
 @Component({
   selector: 'app-userprofile',
@@ -6,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
-  currentUser: String;
+  currentUser: User;
   constructor() { 
     this.currentUser = history.state.data.username;
+    this.currentUser = new User(history.state.data.username, history.state.data.id)
   }
 
   ngOnInit(): void {
