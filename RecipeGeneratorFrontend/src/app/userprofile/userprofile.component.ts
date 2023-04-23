@@ -10,37 +10,25 @@ import { Router } from '@angular/router';
 })
 export class UserprofileComponent implements OnInit {
   currentUser;
-  loadCounter: number;
   loggedIn: Boolean;
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient) { 
+    this.currentUser;
     this.loggedIn = false;
-    this.loadCounter;
   }
 
   ngOnInit(): void {
     this.verifyLoggedIn();
   }
-verifyLoggedIn(){
-                this.loggedIn = false;
-                this.http.get('http://localhost:8080/currentUser')
-                .pipe(map((response) => {
-                  let user = [];
-                  for (let key in response){
-                    user.push(response[key]);
-                  }
-                  return user;
-                }))
-                .subscribe((response) => {
-                    if(response.length != 0){
-                    this.currentUser = response;
-                    this.loggedIn = true;
-                    }
-                })
+ verifyLoggedIn(){
+  if(localStorage.getItem('username') != null){
+    this.currentUser = localStorage.getItem('username')
+    this.loggedIn = true;
+  }
+
 }
 logOut(){
-  this.http.get('http://localhost:8080/logout').subscribe((response)=> {
-    console.log(response)
-  })
+  localStorage.clear()
+  console.log(localStorage.getItem('username'))
   this.loggedIn = false;
 }
 }

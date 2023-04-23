@@ -14,19 +14,15 @@ import { User } from '../User';
 export class LogincomponentComponent implements OnInit {
   private usersUrl: string;
   incorrectPassword: boolean;
-  currentUser: User;
-  private response: AuthenticationFailed[];
   constructor(private http: HttpClient, private router: Router) {
     this.usersUrl = 'http://localhost:8080/login'
-    this.response = [];
     this.incorrectPassword = false;
-    this.currentUser = new User("Blank", '1');
    }
 
   ngOnInit() {
   }
 
-  login(userInformation: {username: String, password: String}) {
+  login(userInformation: {username: string, password: string}) {
         this.incorrectPassword = false;
         let loginInfo: LoginFormDTO = {
           username: userInformation.username,
@@ -39,7 +35,8 @@ export class LogincomponentComponent implements OnInit {
                  this.incorrectPassword = true;
             }
             else if(k == 'username'){
-              this.router.navigate(["/profile"], {state: {data: res}})
+              localStorage.setItem(k, loginInfo.username)
+              this.router.navigate(["/profile"])
             }
           }
         });
